@@ -479,7 +479,11 @@ class twampyControlClient:
         log.info("CTRL.RX <<Server Start>>")
         data = self.receive()
 
-        rval = ord(data[15])
+        if sys.version_info > (3,):
+            rval = data[15]
+        else:
+            rval = ord(data[15])
+
         if rval != 0:
             # TWAMP setup request not accepted by server
             log.critical("*** ERROR CODE %d in <<Server Start>>", rval)
@@ -510,7 +514,11 @@ class twampyControlClient:
         log.info("CTRL.RX <<Session Accept>>")
         data = self.receive()
 
-        rval = ord(data[0])
+        if sys.version_info > (3,):
+            rval = data[0]
+        else:
+            rval = ord(data[0])
+
         if rval != 0:
             log.critical("ERROR CODE %d in <<Session Accept>>", rval)
             return False
